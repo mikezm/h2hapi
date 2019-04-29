@@ -1,5 +1,5 @@
 from database.models import Users 
-from api.middleware import auth_service, token_service
+from services import auth_service, token_service
 
 def create_user(data):
     email = data.get('email')
@@ -21,7 +21,4 @@ def login_user(data):
                 id=str(user.id),
                 role=user.role
             )
-    return None
-
-
-    
+    return None    

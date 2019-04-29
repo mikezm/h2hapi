@@ -30,7 +30,7 @@ def configure_app(flask_app):
     flask_app.config['RESTPLUS_MASK_SWAGGER'] = settings.RESTPLUS_MASK_SWAGGER
     flask_app.config['ERROR_404_HELP'] = settings.RESTPLUS_ERROR_404_HELP
     #flask_app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
-    flask_app.config['BCRYPT_ROUNDS'] = settings.NUM_ROUNDS
+    #flask_app.config['BCRYPT_ROUNDS'] = settings.NUM_ROUNDS
     #flask_app.config['SECRET_KEY'] = settings.SECRET_KEY
     #flask_app.config['JWT_AUTH_URL_RULE'] = '/api/auth'
     #flask_app.config['JWT_AUTH_ENDPOINT'] = '/login' 

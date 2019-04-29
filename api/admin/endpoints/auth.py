@@ -4,7 +4,7 @@ from flask import request
 from flask_restplus import Resource
 from api.admin import business, serializers, parsers
 from api.restplus import api
-from api.middleware.token_service import token_required
+from api.middleware import token_required
 
 log = logging.getLogger(__name__)
 

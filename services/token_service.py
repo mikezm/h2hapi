@@ -6,30 +6,6 @@ import logging, re
 
 log = logging.getLogger(__name__)
 
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-
-        token_header = None
-        if 'Authorization' in request.headers:
-            token_header = request.headers['Authorization']
-
-        if not token_header:
-            return {'message:': 'Missing Token in Headers'}, 401
-
-        token = extract_token_from_header(token_header)
-        if not token:
-            return {'message:': 'Header format issue'}, 401
-
-        authenticated, res = decode_token(token)
-        if not authenticated:
-            return {'message': res}, 401
-        
-             
-            
-        return f(*args, **kwargs)    
-    return decorated
-
 def extract_token_from_header(token_string):
     p = re.compile('(token|bearer)\s{1}', re.IGNORECASE)
     match_token = p.match(token_string)
@@ -38,9 +14,6 @@ def extract_token_from_header(token_string):
         if token and token!=' ':
             return token
     return False
-        
-
-
 
 def encode_token(user_id, duration=120):
     """

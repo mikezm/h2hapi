@@ -15,3 +15,12 @@ def authenticate_user(email=None, password=None):
 
 def hash_password(password):
     return sha256_crypt.encrypt(password, rounds=settings.NUM_ROUNDS)
+
+def authorize_user(usr_id=None, access='reader'):
+    roles = {'admin': 0, 'editor': 1, 'reader': 2}
+    user = Users.objects(id=usr_id)[0]
+    if user and user.role:
+        if access in roles:
+            if roles[user.role] <= roles[access]:
+                return True
+    return False
