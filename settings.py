@@ -22,8 +22,6 @@ MONGO_USER = os.environ["MONGO_ATLAS_USER"]
 MONGO_PWD = os.environ["MONGO_ATLAS_PWD"] 
 MONGO_URI = "mongodb+srv://%s:%s@%s/%s?retryWrites=true" % (MONGO_USER, MONGO_PWD, MONGO_HOST, MONGO_DBNAME)
 
-# mongodb+srv://h2hapi:6j1yv1bg4A33f9ss@cluster0-bdme9.gcp.mongodb.net/h2hdb?retryWrites=true
-
 # secret key
 SECRET_KEY = os.environ["H2H_SECRET_KEY"]
 
