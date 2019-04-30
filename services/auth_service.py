@@ -22,5 +22,5 @@ def authorize_user(usr_id=None, access='reader'):
     if user and user.role:
         if access in roles:
             if roles[user.role] <= roles[access]:
-                return True
+                return user.role
     return False

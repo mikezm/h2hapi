@@ -4,7 +4,7 @@ from flask import request
 from flask_restplus import Resource
 from api.admin import business, serializers, parsers
 from api.restplus import api
-from api.middleware import token_required
+from api.middleware import token_required, access_required
 
 log = logging.getLogger(__name__)
 
@@ -39,5 +39,6 @@ class UsersCollection(Resource):
 class TokenTest(Resource):
     @api.doc(security='apikey')
     @token_required
-    def post(self):
-        return {'token': 'passed'}, 200
+    @access_required('reader', parameters=True)
+    def post(self, user_id, role):
+        return {'message': 'success! id: '+ user_id}, 200
