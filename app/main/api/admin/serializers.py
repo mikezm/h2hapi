@@ -1,5 +1,5 @@
 from flask_restplus import fields
-from api.restplus import api
+from app.main.api.restplus import api
 
 msg_field = fields.String(required=False, description='Message')
 eml_field = fields.String(required=True, description='email address')

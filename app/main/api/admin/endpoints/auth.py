@@ -2,17 +2,17 @@ import logging
 
 from flask import request
 from flask_restplus import Resource
-from api.admin import business, serializers, parsers
-from api.restplus import api
-from api.middleware import token_required, access_required
+from app.main.api.admin import business, serializers, parsers
+from app.main.api.restplus import api
+from app.main.api.middleware import token_required, access_required
 
 log = logging.getLogger(__name__)
 
 ns = api.namespace('auth', description='Auth Operations for Users')
 
-class DM:
-    def get(user_id):
-        return 
+#class DM:
+#    def get(user_id):
+#        return 
 
 @ns.route('/login')
 class UsersCollection(Resource):

@@ -2,8 +2,8 @@ import logging
 
 from flask import request
 from flask_restplus import Resource
-from api.admin import business, serializers, parsers
-from api.restplus import api
+from app.main.api.admin import business, serializers, parsers
+from app.main.api.restplus import api
 
 log = logging.getLogger(__name__)
 

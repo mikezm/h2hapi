@@ -1,6 +1,6 @@
 from flask import request
 from functools import wraps
-from services import token_service, auth_service
+from app.main.services import token_service, auth_service
 import logging
 
 log = logging.getLogger(__name__)

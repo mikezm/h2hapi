@@ -1,4 +1,5 @@
-import jwt, settings
+import jwt
+import app.main.config as app_conf
 from flask import request, json
 from functools import wraps
 from datetime import datetime, timedelta
@@ -30,7 +31,7 @@ def encode_token(user_id, duration=120):
     try:
         return jwt.encode(
             payload,
-            settings.SECRET_KEY,
+            app_conf.SKEY,
             algorithm='HS256'
         ).decode('utf-8')
     except Exception as e:
@@ -45,7 +46,7 @@ def decode_token(auth_token):
     """
     token = bytes(auth_token, 'utf-8')
     try:
-        payload = jwt.decode(auth_token, settings.SECRET_KEY, algorithm='HS256')
+        payload = jwt.decode(auth_token, app_conf.SKEY, algorithm='HS256')
         return True, payload['sub']
     except jwt.ExpiredSignatureError:
         return False, 'Signature expired. Please log in again.'

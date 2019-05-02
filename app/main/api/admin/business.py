@@ -1,5 +1,5 @@
-from database.models import Users 
-from services import auth_service, token_service
+from app.main.database.models import Users 
+from app.main.services import auth_service, token_service
 
 def create_user(data):
     email = data.get('email')

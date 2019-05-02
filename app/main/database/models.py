@@ -1,4 +1,4 @@
-from database import db
+from app.main.database import db
 from mongoengine.errors import NotUniqueError
 from datetime import datetime
 

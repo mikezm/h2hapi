@@ -1,9 +1,9 @@
 import logging
-
 from flask_restplus import Api
-import settings
+#import settings
 from flask_mongoengine import DoesNotExist
 from mongoengine.errors import NotUniqueError
+from app.main.config import APP_RUN_ENV
 
 log = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ def default_error_handler(e):
     message = 'An unhandled exception occurred.'
     log.exception(message)
 
-    if not settings.FLASK_DEBUG:
+    if APP_RUN_ENV == 'prod': #not app.config['DEBUG']: #settings.FLASK_DEBUG:
         return {'message': message}, 500
 
 

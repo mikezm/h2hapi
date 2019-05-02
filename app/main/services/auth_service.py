@@ -1,6 +1,6 @@
-from database.models import Users 
+from app.main.database.models import Users 
 from passlib.hash import sha256_crypt
-import settings
+import app.main.config as app_conf
 
 def authenticate_user(email=None, password=None):
     """
@@ -14,7 +14,7 @@ def authenticate_user(email=None, password=None):
     return None
 
 def hash_password(password):
-    return sha256_crypt.encrypt(password, rounds=settings.NUM_ROUNDS)
+    return sha256_crypt.encrypt(password, rounds=app_conf.HASH_ROUNDS)
 
 def authorize_user(usr_id=None, access='reader'):
     roles = {'admin': 0, 'editor': 1, 'reader': 2}
