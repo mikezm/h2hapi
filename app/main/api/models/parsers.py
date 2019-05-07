@@ -10,3 +10,6 @@ reset_password_args.add_argument('password', type=str, required=True, help='Pass
 
 auth_header = reqparse.RequestParser()
 auth_header.add_argument('Authorization', type=str, required=True, help='Authorization Token', location='headers')
+
+login_request = reqparse.RequestParser()
+login_request.add_argument('Authorization', type=str, required=True, help='Basic Authentication', location='headers')

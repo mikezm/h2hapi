@@ -29,14 +29,13 @@ def encode_token(user_id, duration=120):
         'sub': user_id
     }
     try:
-        return jwt.encode(
+        return True, jwt.encode(
             payload,
             app_conf.SKEY,
             algorithm='HS256'
         ).decode('utf-8')
     except Exception as e:
-        print(e)
-        return e
+        return False, e
 
 def decode_token(auth_token):
     """

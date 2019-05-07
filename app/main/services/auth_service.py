@@ -1,4 +1,4 @@
-from app.main.database.models import Users 
+from app.main.database.models.user import Users 
 from passlib.hash import sha256_crypt
 import app.main.config as app_conf
 
@@ -7,8 +7,8 @@ def authenticate_user(email=None, password=None):
     authenticates a user
     :return Users db.Document
     """
-    user = Users.objects(email=email)[0]
-    if user: 
+    user = Users.objects(email=email).first()
+    if user and user.password: 
         if sha256_crypt.verify(password, user.password):
             return user
     return None
@@ -18,7 +18,7 @@ def hash_password(password):
 
 def authorize_user(usr_id=None, access='reader'):
     roles = {'admin': 0, 'editor': 1, 'reader': 2}
-    user = Users.objects(id=usr_id)[0]
+    user = Users.objects(public_id=usr_id, active=True).first()
     if user and user.role:
         if access in roles:
             if roles[user.role] <= roles[access]:
