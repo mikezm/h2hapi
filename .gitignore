@@ -8,3 +8,4 @@ info.txt
 *__pycache__
 venv
 .vscode
+.swp

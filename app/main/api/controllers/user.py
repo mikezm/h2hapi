@@ -23,7 +23,10 @@ class RegisterUser(Resource):
         """
         new_user = parsers.create_user_args.parse_args(request)
         user_id = user_service.create_user(new_user['email'], new_user['password'])
-        return {'message': 'User Created'}, 201
+        if user_id:
+            return {'message': 'User Created'}, 201
+        else: 
+            return {'message': 'User Already Exists'}, 400
 
 @ns.route('/activate')
 class ActivateUser(Resource):

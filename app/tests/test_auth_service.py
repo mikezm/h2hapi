@@ -24,7 +24,7 @@ class TestAuthService(BaseTestCase):
     def test_authenticate_user(self):
         # set up test user in DB
         test_hash = auth_service.hash_password(self.pwd)
-        test_user = Users(active=True, email=self.eml, password=test_hash)
+        test_user = Users(active=False, email=self.eml, password=test_hash, deactivated=False)
         test_user.save()
         # authenticate
         fetched_user = auth_service.authenticate_user(email=self.eml, password=self.pwd)

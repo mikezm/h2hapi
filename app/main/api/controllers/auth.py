@@ -17,7 +17,7 @@ class UsersCollection(Resource):
     @api.expect(parsers.login_request)
     @api.doc(form=parsers.create_user_args)
     @api.response(200, 'Authentication Passed', model=serializers.auth_res)
-    @api.response(401, 'Authentication Failed', model=serializers.message) 
+    #@api.response(401, 'Authentication Failed', model=serializers.message) 
     #@api.marshal_with(serializers.message, code=401, description='Authentication Failed')
     #@api.marshal_with(serializers.auth_res, code=200, description='Authentication Passed', skip_none=True)
     @basic_auth_required

@@ -1,13 +1,14 @@
 from flask_testing import TestCase
 from app.main.database.models import create_all, drop_all
-from application import app
 from app.main import create_app as create_test_app
 from flask import json
+from app import api_blueprint
 
 class BaseTestCase(TestCase):
     
     def create_app(self):
-        app.config.from_object('app.main.config.TestingConfig')
+        app = create_test_app('test')
+        app.register_blueprint(api_blueprint)
         return app
 
     def setUp(self):

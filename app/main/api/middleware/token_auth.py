@@ -20,7 +20,7 @@ def token_required(f):
         if 'Authorization' in request.headers:
             token_header = request.headers['Authorization']
             if token_header:
-                token = token_service.extract_token_from_header(token_header)
+                token = token_service.extract_token(token_header)
                 if token:
                     authenticated, res = token_service.decode_token(token)
                     if authenticated:

@@ -1,6 +1,9 @@
 from app.main.database.models.user import Users 
 from passlib.hash import sha256_crypt
 import app.main.config as app_conf
+import logging
+
+log = logging.getLogger(__name__)
 
 def authenticate_user(email=None, password=None):
     """

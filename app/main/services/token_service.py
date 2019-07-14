@@ -1,13 +1,12 @@
 import jwt
 import app.main.config as app_conf
 from flask import request, json
-from functools import wraps
 from datetime import datetime, timedelta
 import logging, re
 
 log = logging.getLogger(__name__)
 
-def extract_token_from_header(token_string):
+def extract_token(token_string):
     p = re.compile('(token|bearer)\s{1}', re.IGNORECASE)
     match_token = p.match(token_string)
     if match_token:
