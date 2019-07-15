@@ -21,7 +21,7 @@ def basic_auth_required(f):
         if basic_auth and basic_auth.username and basic_auth.password:
             auth_data = user_service.login_user(basic_auth.username, basic_auth.password)
             if auth_data:
-                params['auth_data'] = auth_data
+                params['data'] = dict(auth_data=auth_data)
                 return f(*args, **params)
 
         return {'message': 'Authentication Failed'}, 401, {'WWW-Authenticate' : 'Basic realm="Login Required"'} 

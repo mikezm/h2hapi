@@ -1,5 +1,4 @@
 from app.main.database import db
-from mongoengine.errors import NotUniqueError
 from datetime import datetime
 from bson.objectid import ObjectId
 
@@ -17,24 +16,5 @@ class Users(db.Document):
     deactivated_date = db.DateTimeField(default=None, db_field='deactivation_date')
 
 
-class Roles(db.Document):
-    key = db.IntField(required=True, unique=True, db_field='key')
-    role = db.StringField(required=True, unique=True, db_field='role')
 
-
-def drop_all():
-    for user in Users.objects:
-        user.delete()
-    for role in Roles.objects:
-        role.delete()
-
-def create_all():
-    preset_roles = ['admin', 'editor', 'reader']
-    k = 0
-    for role in preset_roles:
-        try:
-            Roles(key=k, role=role).save()
-            k += 1
-        except(NotUniqueError):
-            pass
 

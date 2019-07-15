@@ -30,14 +30,14 @@ class access_level(object):
         @wraps(f)
         def decorated(*args, **kwargs):
             params = dict(kwargs)
-            if 'user_id' in params:
-                usr_id = params.pop('user_id')
+            if 'data' in params and 'user_id' in params['data']:
+                usr_id = params['data']['user_id']
                 if usr_id:
                     usr_role = auth_service.authorize_user(usr_id=usr_id, access=self.access)
                     if usr_role:
                         if self.parameters:                            
                             auth_data = dict(id=usr_id, role=usr_role)
-                            params['auth_data'] =  auth_data
+                            params['data']['auth_data'] = auth_data
                         return f(*args, **params)
 
             return {'message': 'Not Authorized'}, 401
