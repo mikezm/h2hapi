@@ -37,11 +37,11 @@ class ActivateUser(Resource):
     @api.expect(parsers.auth_header)
     @api.marshal_with(serializers.message)
     @token_required
-    def put(self, user_id):
+    def put(self, data):
         """
         Activates a user
         """
-        res = user_service.activate_user(user_id)
+        res = user_service.activate_user(data['user_id'])
         if res:
             return {'message': 'User Activated'}, 200
 

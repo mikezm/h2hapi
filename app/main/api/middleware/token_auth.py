@@ -21,11 +21,11 @@ def token_required(f):
             token_header = request.headers['Authorization']
             if token_header:
                 token = token_service.extract_token(token_header)
-                if token:
+                if token and not token_service.is_token_blacklisted(token):
                     authenticated, res = token_service.decode_token(token)
                     if authenticated:
                         params = dict(kwargs)
-                        params['user_id'] = res
+                        params['data'] = dict(user_id=res['sub'], token=token)
                         return f(*args, **params)
                         
         return {'message': 'Authentication Failed'}, 401

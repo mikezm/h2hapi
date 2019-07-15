@@ -1,4 +1,5 @@
-from .user import Users, Roles
+from .user import Users
+from .auth import Roles, BlacklistedTokens
 from mongoengine.errors import NotUniqueError
 
 def drop_all():
@@ -6,6 +7,8 @@ def drop_all():
         usr.delete()
     for role in Roles.objects:
         role.delete()
+    for bt in BlacklistedTokens.objects:
+        bt.delete()
 
 def create_all():
     preset_roles = ['admin', 'editor', 'reader']

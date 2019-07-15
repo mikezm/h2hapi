@@ -35,7 +35,6 @@ class TestAuthService(BaseTestCase):
     def test_authorize_user(self):
         # set up test users in DB
         test_hash = auth_service.hash_password(self.pwd)
-        test_users = []
         admin_user = Users(active=True, email='admin'+self.eml, password=test_hash, role='admin', public_id=ObjectId())
         admin_user.save()
         editor_user = Users(active=True, email='editor'+self.eml, password=test_hash, role='editor', public_id=ObjectId())
