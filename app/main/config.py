@@ -33,7 +33,8 @@ class TestingConfig(Config):
     TESTING = True
     SERVER_NAME = 'halfwaytohistory.com'
     MONGO_DBNAME = 'h2h_test_db'
-    MONGODB_HOST = "mongodb://%s:%s@%s/%s?%s" % (MONGO_USER, MONGO_PWD, MONGO_HOST, MONGO_DBNAME, MONGO_QS)
+    #MONGODB_HOST = "mongodb://%s:%s@%s/%s?%s" % (MONGO_USER, MONGO_PWD, MONGO_HOST, MONGO_DBNAME, MONGO_QS)
+    MONGODB_HOST = "mongodb://localhost/%s" % (MONGO_DBNAME)
     SSL_CONTEXT = ('adhoc')
     
 class ProductionConfig(Config):
