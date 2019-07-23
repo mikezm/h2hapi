@@ -1,10 +1,8 @@
 import os
 import logging.config
-from app.main import create_app
-from app import api_blueprint
+from app import create_app
 
 app = create_app(os.environ.get('H2H_API_ENV') or 'dev')
-app.register_blueprint(api_blueprint)
 
 if app.config['DEBUG']:
     # True for 
@@ -13,7 +11,7 @@ if app.config['DEBUG']:
     log = logging.getLogger(__name__)
     log.info('>>>>> Starting development server at https://{}/api/ <<<<<'.format(app.config['SERVER_NAME']))
 
-
+if __name__ == "__main__":
     app.run(
         debug=app.config['DEBUG'],
         ssl_context=app.config['SSL_CONTEXT']
