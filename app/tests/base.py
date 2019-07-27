@@ -1,5 +1,5 @@
 from flask_testing import TestCase
-from app.main.database.models import create_all, drop_all
+from app.main.dynamodb import create_db_tables, drop_db_tables
 from app import create_app as create_test_app
 from flask import json
 
@@ -10,10 +10,10 @@ class BaseTestCase(TestCase):
         return app
 
     def setUp(self):
-        create_all()
+        create_db_tables()
 
     def tearDown(self):
-        drop_all()
+        drop_db_tables()
 
     def make_test_request(self, uri, method, data=None, custom_headers=None):
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}

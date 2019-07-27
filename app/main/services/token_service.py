@@ -3,11 +3,16 @@ import app.main.config as app_conf
 from flask import request, json
 from datetime import datetime, timedelta
 import logging, re
-from app.main.database.models.auth import BlacklistedTokens
+from app.main.dynamodb import tokens
+from boto3.dynamodb.conditions import Key
 
 log = logging.getLogger(__name__)
 
 def extract_token(token_string):
+    """
+    Extracts a token from a token string
+    :return: bool|token
+    """
     p = re.compile('(token|bearer)\s{1}', re.IGNORECASE)
     match_token = p.match(token_string)
     if match_token:
@@ -58,16 +63,18 @@ def blacklist_token(auth_token):
     :param auth_token:
     :return: bool
     """
-    exp_date = datetime.utcnow()
     token_is_active, res = decode_token(auth_token)
-    if token_is_active:
-        exp_date = datetime.utcfromtimestamp(res['exp']) 
-    bt = BlacklistedTokens(token=auth_token, expiration_date=exp_date)
-    try:
-        bt.save()
-        return True
-    except e:
+    if not token_is_active:
         return False
+    
+    exp_date = datetime.utcfromtimestamp(res['exp']).isoformat()
+
+    res = tokens.query(Select='COUNT', KeyConditionExpression=Key('auth_token').eq(auth_token))
+    if res['Count'] > 0:
+        return False
+
+    tokens.put_item(Item=dict(auth_token=auth_token, expiration_date=exp_date))
+    return True
 
 def is_token_blacklisted(auth_token):
     """
@@ -75,7 +82,5 @@ def is_token_blacklisted(auth_token):
     :param auth_token:
     :return: bool
     """
-    bt = BlacklistedTokens.objects(token=auth_token).first()
-    if bt and bt.token:
-        return True
-    return False
+    res = tokens.query(Select='COUNT', KeyConditionExpression=Key('auth_token').eq(auth_token))
+    return (res['Count'] > 0)

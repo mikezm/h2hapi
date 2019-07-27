@@ -1,5 +1,6 @@
 from app.tests.base import BaseTestCase
-from app.main.database.models.auth import BlacklistedTokens
+from app.main.dynamodb import tokens
+from boto3.dynamodb.conditions import Key
 from flask import json
 import base64
 
@@ -83,7 +84,8 @@ class TestUserController(BaseTestCase):
             # now log out (blacklist token)
             logout_res = token_request(self, 'api/auth/logout', 'get')
             logout_data = logout_res.json
-            bt = BlacklistedTokens.objects(token=self.token).first()
+            res = tokens.query(Select='SPECIFIC_ATTRIBUTES', ProjectionExpression='auth_token', KeyConditionExpression=Key('auth_token').eq(self.token))
+            bt = res['Items'][0]
             self.assertIsNotNone(bt)
             self.assertTrue(logout_data['message'] == 'logged out')
             self.assert200(logout_res)

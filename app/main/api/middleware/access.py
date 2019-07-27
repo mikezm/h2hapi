@@ -1,5 +1,5 @@
 from functools import wraps
-from app.main.services import auth_service
+from app.main.services import user_service
 import logging
 
 log = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ class access_level(object):
             if 'data' in params and 'user_id' in params['data']:
                 usr_id = params['data']['user_id']
                 if usr_id:
-                    usr_role = auth_service.authorize_user(usr_id=usr_id, access=self.access)
+                    usr_role = user_service.authorize_user(usr_id=usr_id, access=self.access)
                     if usr_role:
                         if self.parameters:                            
                             auth_data = dict(id=usr_id, role=usr_role)

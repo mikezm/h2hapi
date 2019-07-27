@@ -1,6 +1,5 @@
 import unittest
 
-
 def test():
     """Runs the unit tests."""
     tests = unittest.TestLoader().discover('.', pattern='test_*.py')
