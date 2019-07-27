@@ -9,3 +9,4 @@ info.txt
 venv
 .vscode
 .swp
+.serverless
