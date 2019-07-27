@@ -10,3 +10,4 @@ venv
 .vscode
 .swp
 .serverless
+node_modules
