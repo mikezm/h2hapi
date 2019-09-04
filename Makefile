@@ -12,7 +12,7 @@ clean:
 	find . -name '__pycache__' -exec rm -R --force {} +
 
 run:	clean
-	python application.py
+	sls wsgi serve
 
 test:	clean
 	python ./app/tests/run_tests.py

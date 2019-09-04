@@ -11,3 +11,4 @@ venv
 .swp
 .serverless
 node_modules
+.dynamodb

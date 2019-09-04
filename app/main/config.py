@@ -19,7 +19,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SERVER_NAME = 'localhost:8888'
+    SERVER_NAME = 'localhost:5000'
     SSL_CONTEXT = ('adhoc')
 
 class TestingConfig(Config):

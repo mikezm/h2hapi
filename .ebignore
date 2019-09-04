@@ -1,3 +1,6 @@
 venv
 .vscode
 info.txt
+.serverless
+node_modules
+.dynamodb
