@@ -11,8 +11,8 @@ clean:
 	find . -name '*.pyo' -exec rm --force {} +
 	find . -name '__pycache__' -exec rm -R --force {} +
 
-run:	clean
+run:
 	sls wsgi serve
 
-test:	clean
+test:
 	python ./app/tests/run_tests.py

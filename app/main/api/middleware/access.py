@@ -36,7 +36,7 @@ class access_level(object):
                     usr_role = user_service.authorize_user(usr_id=usr_id, access=self.access)
                     if usr_role:
                         if self.parameters:                            
-                            auth_data = dict(id=usr_id, role=usr_role)
+                            auth_data = dict(id=usr_id, user_role=usr_role)
                             params['data']['auth_data'] = auth_data
                         return f(*args, **params)
 

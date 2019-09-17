@@ -1,11 +1,21 @@
+org: mikezm
+app: h2hapi
 # serverless.yml
 
-service: serverless-flask
+service: halfway-to-history-api
 
 plugins:
   - serverless-python-requirements
   - serverless-wsgi
   - serverless-dynamodb-local
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: ${opt:stage,'dev'}
+  region: us-east-2
+  # Environment variables
+
 
 custom:
   wsgi:
@@ -19,13 +29,9 @@ custom:
     start:
       migrate: false
       sharedDb: true
-      #noStart: true # because dynamodb is already running as local service
+      noStart: true # because dynamodb is already running as local service
 
-provider:
-  name: aws
-  runtime: python3.7
-  stage: dev
-  region: us-east-2
+
 
 functions:
   app:

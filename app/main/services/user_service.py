@@ -67,10 +67,10 @@ def deactivate_user(user_id):
     )
     return True
 
-def login_user(email, password):
+def login_user(email, password, token_expiry=3600):
     """
     Login an active user
-    :return: None|Err|dict['token', 'email', 'id', 'role']
+    :return: None|Err|dict['token', 'email', 'id', 'user_role']
     """
     res = users.scan(
         Select='SPECIFIC_ATTRIBUTES',
@@ -84,9 +84,9 @@ def login_user(email, password):
     if not sha256_crypt.verify(password, user['password']):
         return None
 
-    passed, fetched_token=token_service.encode_token(user['id'], duration=3600)
+    passed, fetched_token=token_service.encode_token(user['id'], duration=token_expiry)
     if passed:
-        return dict(token=fetched_token, email=email, id=user['id'], role=user['user_role'])
+        return dict(token=fetched_token, id=user['id'], user_role=user['user_role'], expires_in=token_expiry)
 
     return fetched_token
 

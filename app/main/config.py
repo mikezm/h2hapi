@@ -6,6 +6,7 @@ SKEY = os.environ.get("H2H_SECRET_KEY")
 
 USERS_TABLENAME = os.environ.get("USERS_TABLENAME")
 BLTOKENS_TABLENAME = os.environ.get("BLTOKENS_TABLENAME")
+ARTICLES_TABLENAME = os.environ.get("ARTICLES_TABLENAME")
 
 class Config:
     SECRET_KEY = SKEY
@@ -20,18 +21,18 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SERVER_NAME = 'localhost:5000'
-    SSL_CONTEXT = ('adhoc')
+    #SSL_CONTEXT = ('adhoc')
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
     SERVER_NAME = 'halfwaytohistory.com'
-    SSL_CONTEXT = ('adhoc')
+    #SSL_CONTEXT = ('adhoc')
     
 class ProductionConfig(Config):
     DEBUG = False
     SERVER_NAME = 'halfwaytohistory.com'
-    SSL_CONTEXT = ('adhoc')
+    #SSL_CONTEXT = ('adhoc')
 
 config_by_name = dict(
     dev=DevelopmentConfig,

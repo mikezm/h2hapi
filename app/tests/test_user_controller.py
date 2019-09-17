@@ -24,7 +24,7 @@ def login_user(self):
     req_auth = 'Basic ' + base64.b64encode(auth_string).decode()
     headers = {'Authorization': req_auth}
     return self.make_test_request(
-        'api/auth/login',
+        'api/user/login',
         'get',
         custom_headers=headers
     )
@@ -57,32 +57,31 @@ class TestUserController(BaseTestCase):
             # login with new user to get token
             login_res = login_user(self)
             login_data = login_res.json 
-            self.assertTrue(login_data['message'] == 'Welcome back')
-            self.assertTrue(login_data['data'])
-            self.assertTrue(login_data['data']['token'])
-            self.assertTrue(login_data['data']['id'])
-            self.assertTrue(login_data['data']['role'])
+            self.assertTrue(login_data['token'])
+            self.assertTrue(login_data['id'])
+            self.assertTrue(login_data['user_role'])
+            self.assertTrue(login_data['expires_in'])
             self.assert200(login_res)
             self.token = login_data['data']['token']
             # fail auth prior to activation
-            pre_act_res = token_request(self, 'api/auth/test', 'get')
+            pre_act_res = token_request(self, 'api/user/test', 'get')
             pre_act_data = pre_act_res.json
             self.assertTrue(pre_act_data['message'])
             self.assert401(pre_act_res)
             # activate user with auth token
-            act_res = token_request(self, 'api/user/activate', 'put')
+            act_res = token_request(self, 'api/user/activate', 'get')
             act_data = act_res.json
             self.assertTrue(act_data['message'] == 'User Activated')
             self.assert200(act_res)
             # should pass auth test now
-            post_act_res = token_request(self, 'api/auth/test', 'get')
+            post_act_res = token_request(self, 'api/user/test', 'get')
             post_act_data = post_act_res.json
             self.assertTrue(post_act_data['message'])
             self.assertTrue(post_act_data['role'])
             self.assertTrue(post_act_data['role'] == login_data['data']['role'])
             self.assert200(post_act_res)
             # now log out (blacklist token)
-            logout_res = token_request(self, 'api/auth/logout', 'get')
+            logout_res = token_request(self, 'api/user/logout', 'get')
             logout_data = logout_res.json
             res = tokens.query(Select='SPECIFIC_ATTRIBUTES', ProjectionExpression='auth_token', KeyConditionExpression=Key('auth_token').eq(self.token))
             bt = res['Items'][0]
@@ -90,7 +89,7 @@ class TestUserController(BaseTestCase):
             self.assertTrue(logout_data['message'] == 'logged out')
             self.assert200(logout_res)
             # should fail auth test
-            post_logout_res = token_request(self, 'api/auth/test', 'get')
+            post_logout_res = token_request(self, 'api/user/test', 'get')
             post_logout_data = post_logout_res.json
             self.assert401(post_logout_res)
             self.assertEqual(post_logout_data['message'], 'Authentication Failed')

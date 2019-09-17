@@ -10,11 +10,19 @@ authorizations = {
         'type': 'apiKey',
         'in': 'header',
         'name': 'Authorization'
+    },
+    'basicAuth' : {
+        'type': 'basic',
+        'in': 'header',
+        'name': 'Authorization'
     }
 }
 
-api = Api(version='1.0', title='Halfway to History API', authorizations=authorizations,
-          description='Article and User management for Halfway to History project')
+api = Api(version='1.0', 
+    title='Halfway to History API', 
+    description='Article and User management for Halfway to History project',
+    authorizations=authorizations,
+    validate=True)
 
 @api.errorhandler
 def default_error_handler(e):
