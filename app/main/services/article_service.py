@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 article_fields = [
     'headline',
     'article_date',
-    'sepakers',
+    'speakers',
     'info',
     'paragraphs',
     'tags'
@@ -22,7 +22,7 @@ def get_articles_summary():
     """
     res = articles.scan(
         Select='SPECIFIC_ATTRIBUTES',
-        ProjectionExpression='headline, speakers, article_date, tags'
+        ProjectionExpression='headline, speakers, article_date, tags, info'
     )
     if res['Count'] < 1:
         return None

@@ -84,7 +84,7 @@ article_summary = api.model('Article Summary', {
 article = api.model('Article', {
     'headline': headline_field,
     'speakers': speakers_field,
-    'date': date_field,
+    'article_date': date_field,
     'info': info_field,
     'tags': tags_field,
     'paragraphs': paragraphs_field
