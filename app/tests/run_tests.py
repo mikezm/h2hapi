@@ -1,5 +1,6 @@
 import unittest
 
+
 def test():
     """Runs the unit tests."""
     tests = unittest.TestLoader().discover('.', pattern='test_*.py')
@@ -7,6 +8,7 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
 
 if __name__ == "__main__":
     test()

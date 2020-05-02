@@ -2,8 +2,8 @@ from app.tests.base import BaseTestCase
 from app.main.services import token_service
 from app.main.dynamodb import tokens
 from boto3.dynamodb.conditions import Key
-from flask import json
 from bson.objectid import ObjectId
+
 
 class TestTokenService(BaseTestCase):
     eml = 'test@unit.com'
@@ -41,7 +41,8 @@ class TestTokenService(BaseTestCase):
     def test_blacklist_token(self):
         _, my_token = token_service.encode_token(user_id=self.user_id)
         logged_out = token_service.blacklist_token(my_token)
-        res = tokens.query(Select='SPECIFIC_ATTRIBUTES', ProjectionExpression='auth_token', KeyConditionExpression=Key('auth_token').eq(my_token))
+        res = tokens.query(Select='SPECIFIC_ATTRIBUTES', ProjectionExpression='auth_token',
+                           KeyConditionExpression=Key('auth_token').eq(my_token))
         bt = res['Items'][0]
         self.assertTrue(logged_out)
         self.assertIsNotNone(bt)
@@ -56,7 +57,3 @@ class TestTokenService(BaseTestCase):
         test_bl = token_service.is_token_blacklisted(bl_token)
         self.assertFalse(test_clean)
         self.assertTrue(test_bl)
-
-
-
-

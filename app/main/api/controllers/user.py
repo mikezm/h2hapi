@@ -13,6 +13,7 @@ log = logging.getLogger(__name__)
 
 ns = api.namespace('user', description='Operations for Users')
 
+
 @ns.route('/create')
 class CreateUser(Resource):
 
@@ -26,13 +27,14 @@ class CreateUser(Resource):
         user_id = user_service.create_user(new_user['email'], new_user['password'])
         if not user_id:
             abort(400, 'User Already Exists')
-        
+
         token_passed, token = token_service.encode_token(user_id, duration=3600)
         if not token_passed:
             abort(400, '{}'.format(token))
 
         email_result = mail_service.send_activation_email(new_user['email'], token)
-        return {'message': 'User Created. Email delivery: {}'. format(email_result)}, 201
+        return {'message': 'User Created. Email delivery: {}'.format(email_result)}, 201
+
 
 @ns.route('/activate')
 class ActivateUser(Resource):
@@ -49,8 +51,9 @@ class ActivateUser(Resource):
         res = user_service.activate_user(data['user_id'])
         if not res:
             abort(401, 'Activation Failed')
-        
+
         return {'message': 'User Activated'}, 200
+
 
 @ns.route('/login')
 class LoginUser(Resource):
@@ -62,7 +65,8 @@ class LoginUser(Resource):
         Login. Returns an Auth Token
         """
         return data['auth_data'], 200
-        
+
+
 @ns.route('/test')
 class TokenTest(Resource):
     @api.doc(security='apikey')
@@ -70,6 +74,7 @@ class TokenTest(Resource):
     @access_level('reader', parameters=True)
     def get(self, data):
         return {'message': 'success!', 'user_role': data['auth_data']['user_role']}, 200
+
 
 @ns.route('/logout')
 class LogoutUser(Resource):

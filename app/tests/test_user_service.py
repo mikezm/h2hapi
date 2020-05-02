@@ -51,7 +51,10 @@ class TestUserService(BaseTestCase):
         my_id = user_service.create_user(email=self.eml, password=self.pwd)
         test_res = user_service.login_user(email=self.eml, password=self.pwd)
         # should login without issue
-        self.assertEqual(self.eml, test_res['email'])
+        self.assertIn('token', test_res.keys())
+        self.assertIn('id', test_res.keys())
+        self.assertIn('user_role', test_res.keys())
+        self.assertIn('expires_in', test_res.keys())
         self.assertEqual(str(my_id['id']), test_res['id'])
         # test for deactivated account login attempt
         user_service.deactivate_user(my_id['id'])

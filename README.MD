@@ -1,6 +1,12 @@
 ## Description ##
 This repository represents the back-end for the H2H site (WIP). 
-Using an AWS serverless deployment model, this Flask API uses 
+Deployed to AWS Lambda via serverless. A Flask_restplus API attached to dynamoDB.
+
+The solution implements simple user management endpoints and methods for the H2HSite to 
+retrieve necessary JWT tokens for authenticated access and register new users. 
+
+A noSQL db was chosen for as the expectation is that most of the DB will be taken up by 
+articles/journal notes lacking any concrete schema. 
 
 ## Requirements ##
  - Python 3.7
@@ -9,8 +15,8 @@ Using an AWS serverless deployment model, this Flask API uses
  - DynamoDB
  - Docker
  
- ## Installation ##
- Download python3 and install. I recommend using `Virtualenv` or some other environment manager.
+## Installation ##
+Download python3 and install. I recommend using `Virtualenv` or some other environment manager.
   
   - Install Serverless `npm -g install serverless`
   - Install sls python requirements: `sls plugin install -n serverless-python-requirements`
@@ -19,10 +25,10 @@ Using an AWS serverless deployment model, this Flask API uses
   - Install python requirements: `pip install -r requirements.txt`
   - Make sure Docker is installed and pull the DynamoDB local container: `docker pull amazon/dynamodb-local`
  
- ## Environment Variables ##
+## Environment Variables ##
  
- There are a fair amount of environment variables to install for the AWS and the DB itself. 
- To keep this a public repository no tokens, DB assets, or encryption keys are part of the solution. 
+There are a fair amount of environment variables to install for the AWS and the DB itself. 
+To keep this a public repository no tokens, DB assets, or encryption keys are part of the solution. 
  
 - H2H_API_ENV="dev"
 - H2H_SECRET_KEY="YouRSecRetTokenKeyHere"
@@ -36,13 +42,17 @@ Using an AWS serverless deployment model, this Flask API uses
 - ARTICLES_TABLENAME="ARTICLES_TABLE_NAME"
 - AWS_DEFAULT_REGION="aws-region"
 
- ## Running the API ##
- Start dynamoDB in Docker: `docker run -p 8000:8000 amazon/dynamodb-local`
+## Running the API ##
+Start dynamoDB in Docker: `docker run -p 8000:8000 amazon/dynamodb-local`
  
- In detached mode: `docker run -d -p 8000:8000 amazon/dynamodb-local`
+In detached mode: `docker run -d -p 8000:8000 amazon/dynamodb-local`
  
- Run the API: `make run` or `sls wsgi serve`
- Run Unit Tests: `make test`
+Run the API: `make run` or `sls wsgi serve`
+
+API docs available at `http://localhost:5000/api/`
+
+## Unit Tests ##
+`make test`
  
  
  
