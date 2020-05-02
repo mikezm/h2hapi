@@ -5,7 +5,7 @@ Deployed to AWS Lambda via serverless. A Flask_restplus API attached to dynamoDB
 The solution implements simple user management endpoints and methods for the H2HSite to 
 retrieve necessary JWT tokens for authenticated access and register new users. 
 
-A noSQL db was chosen for as the expectation is that most of the DB will be taken up by 
+A noSQL db was chosen as the expectation is that most of the DB will be taken up by 
 articles/journal notes lacking any concrete schema. 
 
 ## Requirements ##
