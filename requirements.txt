@@ -20,7 +20,7 @@ backports.weakref==1.0.post1
 beautifulsoup4==4.8.1
 bitarray==1.2.0
 bkcharts==0.2
-bleach==3.1.0
+bleach==3.1.5
 bokeh==1.4.0
 boto==2.49.0
 boto3==1.9.197
@@ -141,7 +141,7 @@ patsy==0.5.1
 pep8==1.7.1
 pexpect==4.7.0
 pickleshare==0.7.5
-Pillow==6.2.1
+Pillow==7.1.2
 pkginfo==1.5.0.1
 pluggy==0.13.1
 ply==3.11
